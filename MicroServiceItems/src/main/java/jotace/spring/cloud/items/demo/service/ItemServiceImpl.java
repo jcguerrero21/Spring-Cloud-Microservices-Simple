@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service
+@Service("serviceRestTemplate")
 public class ItemServiceImpl implements ItemService {
 
     private RestTemplate clienteRestTemplate;
@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional(readOnly = true)
     public List<Item> findAll() {
-        List<Producto> productos = Arrays.asList(clienteRestTemplate.getForObject("http://localhost:8001/listar", Producto[].class));
+        List<Producto> productos = Arrays.asList(clienteRestTemplate.getForObject("http://servicio-productos/listar", Producto[].class));
         return productos.stream().map(producto -> new Item(producto, 1)).collect(Collectors.toList());
     }
 
@@ -32,7 +32,7 @@ public class ItemServiceImpl implements ItemService {
     public Item findById(Long id, Integer cantidad) {
         Map<String, String> pathVariables = new HashMap<>();
         pathVariables.put("id", id.toString());
-        Producto producto = clienteRestTemplate.getForObject("http://localhost:8001/ver/{id}", Producto.class, pathVariables);
+        Producto producto = clienteRestTemplate.getForObject("http://servicio-productos/ver/{id}", Producto.class, pathVariables);
         return new Item(producto, cantidad);
     }
 
