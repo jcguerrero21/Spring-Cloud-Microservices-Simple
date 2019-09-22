@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>jotace.spring.cloud.items</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>items</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Servicio Items</name>
     <description>Micro servicio de items</description>
@@ -30,10 +30,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

@@ -11,19 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service("ServiceFeign")
-@Primary
 public class ItemServiceFeign implements ItemService {
 
-    private ProductoClienteRest clienteFeign;
-
     @Autowired
-    public  ItemServiceFeign(ProductoClienteRest productoClienteRest){
-        this.clienteFeign = productoClienteRest;
-    }
+    private ProductoClienteRest clienteFeign;
 
     @Override
     public List<Item> findAll() {
-        return clienteFeign.listar().stream().map(producto -> new Item(producto,1)).collect(Collectors.toList());
+        return clienteFeign.listar().stream().map(prod -> new Item(prod,1)).collect(Collectors.toList());
     }
 
     @Override
