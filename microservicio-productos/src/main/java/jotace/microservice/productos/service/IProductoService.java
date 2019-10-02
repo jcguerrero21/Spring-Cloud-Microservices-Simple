@@ -2,7 +2,7 @@ package jotace.microservice.productos.service;
 
 import java.util.List;
 
-import jotace.microservice.productos.entity.Producto;
+import jotace.app.microservicio.commons.entity.Producto;
 
 public interface IProductoService {
 
@@ -11,7 +11,7 @@ public interface IProductoService {
      *
      * @return Lista de productos
      */
-    public List<Producto> findAll();
+    List<Producto> findAll();
 
     /**
      * Método que busca un producto por su id
@@ -19,6 +19,21 @@ public interface IProductoService {
      * @param id
      * @return Un único producto
      */
-    public Producto findById(Long id);
+    Producto findById(Long id);
+    
+    /**
+     * Método para guardar un producto
+     * 
+     * @param producto
+     * @return
+     */
+    Producto save(Producto producto);
+    
+    /**
+     * Método para eliminar un producto por su id
+     * 
+     * @param id
+     */
+    void deleteById(Long id);
 	
 }

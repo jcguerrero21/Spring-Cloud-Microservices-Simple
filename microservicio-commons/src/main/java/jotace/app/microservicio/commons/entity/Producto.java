@@ -1,4 +1,4 @@
-package jotace.microservice.productos.entity;
+package jotace.app.microservicio.commons.entity;
 
 import java.io.Serializable;
 import java.util.Date;

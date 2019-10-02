@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import jotace.microservice.items.feign.FeignProductoRest;
 import jotace.microservice.items.model.Item;
+import jotace.app.microservicio.commons.entity.Producto;
 
 @Service("ServiceFeign")
-@Primary
 public class ItemServiceFeign implements ItemService {
 
     @Autowired
@@ -26,4 +25,19 @@ public class ItemServiceFeign implements ItemService {
     public Item findById(Long id, Integer cantidad) {
         return new Item(clienteFeign.detalle(id), cantidad);
     }
+
+	@Override
+	public Producto save(Producto producto) {
+		return clienteFeign.crear(producto);
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		return clienteFeign.update(producto, id);
+	}
+
+	@Override
+	public void delete(Long id) {
+		clienteFeign.eliminar(id);
+	}
 }

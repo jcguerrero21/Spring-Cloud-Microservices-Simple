@@ -1,5 +1,7 @@
 package jotace.microservice.items.model;
 
+import jotace.app.microservicio.commons.entity.Producto;
+
 public class Item {
 
 	private Producto producto;
