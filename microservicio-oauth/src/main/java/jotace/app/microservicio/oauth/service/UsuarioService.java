@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import brave.Tracer;
 import feign.FeignException;
 import jotace.app.microservicio.oauth.feign.UsuarioFeignClient;
 import jotace.app.microservicio.usuarios.commons.entity.Usuario;
@@ -25,6 +26,9 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 
 	@Autowired
 	private UsuarioFeignClient client;
+
+	@Autowired
+	private Tracer tracer;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,9 +48,10 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 					authorities);
 
 		} catch (FeignException e) {
-			log.error("Error en el login, no existe el usuario'" + username + "' en el sistema");
-			throw new UsernameNotFoundException(
-					"Error en el login, no existe el usuario'" + username + "' en el sistema");
+			String mensaje = "Error en el login, no existe el usuario'" + username + "' en el sistema";
+			log.error(mensaje);
+			tracer.currentSpan().tag("error.mensaje", mensaje + " : " + e.getMessage());
+			throw new UsernameNotFoundException(mensaje);
 		}
 	}
 
